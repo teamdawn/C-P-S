@@ -1,6 +1,8 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_settings"
-        android:title="@string/menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:title="Street View" android:numericShortcut="1" android:id="@+id/mapStreetView" ></item>
+  <item android:title="Satellite View" android:numericShortcut="2" android:id="@+id/mapSatView"></item>
+  <item android:title="Show Route with Google Maps" android:numericShortcut="3" android:id="@+id/showRouteWithMaps"></item>
+  <item android:title="Launch Google Navigation" android:numericShortcut="4" android:id="@+id/launchNavigation"></item>
 </menu>
