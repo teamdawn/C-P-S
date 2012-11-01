@@ -24,8 +24,9 @@ public class LotMapActivity extends MapActivity
     public void onCreate(Bundle savedInstanceState)
     {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.activity_main);
+    	setContentView(R.layout.main);
         
+    	// TODO - Uncomment following line after uncommenting the mapview in activity_main.xml
     	mapView = (MapView) findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
         mapView.setSatellite(showSatelliteView);
@@ -249,7 +250,7 @@ public class LotMapActivity extends MapActivity
     public boolean onCreateOptionsMenu(Menu menu) {
     	super.onCreateOptionsMenu(menu);
         MenuInflater oMenu = getMenuInflater();
-        oMenu.inflate(R.menu.activity_main, menu);
+        oMenu.inflate(R.menu.main, menu);
         return true;
     }
 

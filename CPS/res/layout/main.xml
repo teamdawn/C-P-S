@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+    
 	<com.google.android.maps.MapView
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/mapview"
@@ -11,13 +12,5 @@
 		android:clickable="true"
 		android:apiKey="0ApIF2ZPAnXtRQs58gpWqEL8TRmkza1DEmPOaPw"
 	/>
-	
-	<!-- You will need to replace the apiKey above with your own key -->
-	<!-- To make this easier, enter your key below so it will always be saved in this file -->
-	<!-- John's Key: 0ApIF2ZPAnXtRQs58gpWqEL8TRmkza1DEmPOaPw -->
-	<!-- Dawn's Key: XXX -->
-	<!-- Nadeeka's Key: XXX -->
-	<!-- Prateek's Key: XXX -->
-	<!-- Anish's Key: XXX -->
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".LotMapActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
