@@ -21,6 +21,7 @@ public class LotMapActivity extends MapActivity
 	private LotItemizedOverlay lot;
 	
 	//Dawn was here.
+	// John was here.
 	
     @Override
     public void onCreate(Bundle savedInstanceState)
