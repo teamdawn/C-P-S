@@ -20,6 +20,8 @@ public class LotMapActivity extends MapActivity
 	private MapController mapController;
 	private LotItemizedOverlay lot;
 	
+	//Dawn was here.
+	
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
