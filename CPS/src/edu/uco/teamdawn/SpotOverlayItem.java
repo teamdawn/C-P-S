@@ -56,7 +56,8 @@ public class SpotOverlayItem extends OverlayItem {
 			pd = new PictureDrawable(this.drawSpot());
 			break;
 		default:
-			pd = new PictureDrawable(this.drawPointer());
+			//pd = new PictureDrawable(this.drawPointer());
+			pd = new PictureDrawable(this.drawSpot());
 			break;
 		}
 		pd.setBounds(-(int) Math.ceil(pd.getIntrinsicWidth() / 2),

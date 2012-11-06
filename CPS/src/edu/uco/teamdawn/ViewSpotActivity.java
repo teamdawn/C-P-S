@@ -1,15 +1,11 @@
 package edu.uco.teamdawn;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.maps.*;
-
-public class SpotViewActivity extends Activity {
+public class ViewSpotActivity extends FragmentActivity {
 
 	TextView lot;
 	TextView spot;
@@ -20,18 +16,18 @@ public class SpotViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_spotview);
+		setContentView(R.layout.viewspotactivity);
 		
 		lot = (TextView) findViewById(R.id.lotNumber);
 		spot = (TextView) findViewById(R.id.spotNumber);
 		
 		checkInOut = (Button) findViewById(R.id.checkInOutButton);
-		cancelReservation = (Button) findViewById(R.id.cancelButton);
+		cancelReservation = (Button) findViewById(R.id.cancelReservationButton);
 		
 		//RelativeLayout rl = (RelativeLayout) findViewById(R.id.rLayout);
-		Intent intent = new Intent(SpotViewActivity.this, LotMapActivity.class);
-		intent.putExtra("spotActivity", true);
-		startActivity(intent);
+		//Intent intent = new Intent(ViewSpotActivity.this, LotMapActivity.class);
+		//intent.putExtra("spotActivity", true);
+		//startActivity(intent);
 	}
 	
 	

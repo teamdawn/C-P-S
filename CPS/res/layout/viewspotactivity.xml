@@ -72,4 +72,21 @@
             android:layout_marginRight="14dp"
             android:text="CancelReservation" />
 
+        <FrameLayout
+            android:id="@+id/LotMapFragmentFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/checkInOutButton"
+            android:layout_alignLeft="@+id/checkInOutButton"
+            android:layout_alignRight="@+id/cancelReservationButton"
+            android:layout_below="@+id/spot" >
+
+            <fragment
+                android:id="@+id/LotMapFragment"
+                android:name="edu.uco.teamdawn.LotMapFragment"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </FrameLayout>
+
     </RelativeLayout>

@@ -79,13 +79,13 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 		dialog.setTitle(spot.getTitle());
-		dialog.setMessage(spot.getSnippet() + "\nZoomLevel: " + zoomLevel
-				+ "\nI-height: " + spot.getMarker(0).getIntrinsicHeight()
-				+ "\nI-width: " + spot.getMarker(0).getIntrinsicWidth()
-				+ "\nWidth: " + spot.getWidth()
-				+ "\nHeight: " + spot.getHeight()
-				+ "\nCenterLat:" + spot.getCenterLatString()
-				+ "\nCenterLong:" + spot.getCenterLongString());
+		dialog.setMessage(spot.getSnippet() + "\nZoomLevel: " + zoomLevel);
+				//+ "\nI-height: " + spot.getMarker(0).getIntrinsicHeight()
+				//+ "\nI-width: " + spot.getMarker(0).getIntrinsicWidth()
+				//+ "\nWidth: " + spot.getWidth()
+				//+ "\nHeight: " + spot.getHeight()
+				//+ "\nCenterLat:" + spot.getCenterLatString()
+				//+ "\nCenterLong:" + spot.getCenterLongString());
 
 		dialog.show();
 		

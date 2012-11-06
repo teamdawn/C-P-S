@@ -28,15 +28,14 @@ public class LotMapActivity extends MapActivity
     public void onCreate(Bundle savedInstanceState)
     {
     	super.onCreate(savedInstanceState);
-    	setContentView(R.layout.main);
+    	setContentView(R.layout.lotmapactivity);
         
-    	// TODO - Uncomment following line after uncommenting the mapview in activity_main.xml
-    	mapView = (MapView) findViewById(R.id.mapview);
+    	mapView = (MapView) findViewById(R.id.lotmapview);
         mapView.setBuiltInZoomControls(true);
         mapView.setSatellite(showSatelliteView);
                 
         Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
-        lot = new LotItemizedOverlay(defaultMarker, this, 1, "Lot 1", 35654125, -97473500, 20, mapView);
+        lot = new LotItemizedOverlay(defaultMarker, this, 1, "Lot 1", 35654125, -97473500, 19, mapView);
         mapView.getOverlays().add(lot);
 
         mapController = mapView.getController();
