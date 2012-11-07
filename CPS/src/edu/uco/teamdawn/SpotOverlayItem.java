@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.drawable.PictureDrawable;
-
+// test comment
 public class SpotOverlayItem extends OverlayItem {
 	private int spotNumber;
 	private String status;
