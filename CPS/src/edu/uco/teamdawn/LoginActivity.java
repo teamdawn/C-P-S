@@ -15,7 +15,7 @@ public class LoginActivity extends Activity {
 
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-			setContentView(R.layout.layout_login);
+			setContentView(R.layout.layoutlogin);
 
 			etUsername = (EditText) findViewById(R.id.editText1);
 			etPassword = (EditText) findViewById(R.id.editText2);
@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
 
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(getBaseContext(), RegisterWebviewActivity.class);
+					Intent i = new Intent(getBaseContext(), RegisterWebViewActivity.class);
 					startActivity(i);
 					
 				}

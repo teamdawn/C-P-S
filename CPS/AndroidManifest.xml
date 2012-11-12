@@ -3,8 +3,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-        
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="15" />
@@ -13,17 +13,22 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <uses-library android:name="com.google.android.maps"/>
-        <activity
-            android:name=".ViewSpotActivity"
-            android:label="@string/title_activity_main" >
+        <uses-library android:name="com.google.android.maps" />
+
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ViewSpotActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
         <activity android:name=".LotMapActivity" />
+        <activity android:name=".RegisterWebViewActivity" />
+        <activity android:name=".SelectSpotActivity" />
     </application>
 
 </manifest>
