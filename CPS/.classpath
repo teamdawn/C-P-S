@@ -4,19 +4,5 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="C:/Users/Dawn/android/CPS/libs/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Dawn/android-sdks/add-ons/addon-google_apis-google-14/libs/maps.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/C:/Users/Dawn/android-sdks/add-ons/addon-google_apis-google-14/docs/reference"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Dawn/android-sdks/platforms/android-14/android.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://developer.android.com/reference/"/>
-		</attributes>
-		<accessrules>
-			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
-		</accessrules>
-	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
