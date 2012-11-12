@@ -1,6 +1,8 @@
 package edu.uco.teamdawn;
 
 import android.app.Activity;
+import java.sql.*;
+//import com.microsoft.sqlserver.jdbc.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,12 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
+	public static String connectionString = "jdbc:sqlserver://pjy6iajgqw.database.windows.net:1433" + ";" 
+			+ "database=teamdawn_db;user=teamdawn@pjy6iajgqw;password={fashion123!}" + ";" 
+			+ "encrypt=true" + ";" 
+			+ "hostNameInCertificate=*.database.windows.net" + ";" 
+			+ "loginTimeout=30" + ";";
+	
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.layoutlogin);
