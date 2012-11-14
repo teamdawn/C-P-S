@@ -28,7 +28,6 @@
         </activity>
         <activity android:name=".LotMapActivity" />
         <activity android:name=".RegisterWebViewActivity" />
-        <activity android:name=".SelectSpotActivity" />
     </application>
 
 </manifest>
