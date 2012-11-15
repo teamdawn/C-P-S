@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#AA3344"
+        android:visibility="visible" />
+    
+    <Button
+        android:id="@+id/bReserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:text="Reserve"
+        android:typeface="monospace" />
+
+    <Spinner
+        android:id="@+id/sspot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/tvSpot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bReserve"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:text="Select Spot"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <FrameLayout
+        android:id="@+id/LotMapFragmentFrameSS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="30dp" >
+
+        <fragment
+            android:name="edu.uco.teamdawn.LotMapFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" 
+            android:id="@+id/LotMapFragmentSS"/>
+        
+    </FrameLayout>
+
+</RelativeLayout>
