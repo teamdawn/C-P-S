@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".ViewSpotActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewSpotActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity android:name=".LotMapActivity" />
         <activity android:name=".RegisterWebViewActivity" />
+        <activity android:name=".SelectSpotActivity" />
     </application>
 
 </manifest>
