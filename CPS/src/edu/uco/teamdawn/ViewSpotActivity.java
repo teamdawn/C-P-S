@@ -1,11 +1,29 @@
 package edu.uco.teamdawn;
 
 import com.google.android.maps.MapView;
+import android.os.Bundle;
+import android.app.Activity;
+
+import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+// Add these import statements
+import android.util.Log;     // for logging
+
+import org.json.JSONArray;   // for JSONArray
+import org.json.JSONObject;  // for JSONObject
+
+import java.io.InputStream;         // for reading the response as bytes
+import java.io.BufferedInputStream; // for reading the response as buffered bytes  
+import java.io.BufferedReader;      // for reading bytes in a buffered manner
+import java.io.InputStreamReader;   // for reading bytes into BufferedReader
+import java.net.HttpURLConnection;  // for HttpURLConnection
+import java.net.URL;                // for URL
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +46,12 @@ public class ViewSpotActivity extends FragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewspotactivity);
+		
+		final String mobileServiceUrl = 
+                "https://cps.azure-mobile.net/tables/Lot";
+        final String mobileServiceAppId = 
+        		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
+		
 		Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
 		lot = new LotItemizedOverlay(defaultMarker, this, 1, "Lot 1", 35654125, -97473500, 19, mapView);
 		
