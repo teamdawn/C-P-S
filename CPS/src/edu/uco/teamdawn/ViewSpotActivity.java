@@ -52,6 +52,10 @@ public class ViewSpotActivity extends FragmentActivity {
         final String mobileServiceAppId = 
         		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
 		
+        //COUNTER
+        MyCounter counter = new MyCounter(5000,1000);
+        counter.start();
+        
 		Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
 		lot = new LotItemizedOverlay(defaultMarker, this, 1, "Lot 1", 35654125, -97473500, 19, mapView);
 		
@@ -115,7 +119,7 @@ public class ViewSpotActivity extends FragmentActivity {
     {
     	return false;
     }
-
-	
+    
+    
 	
 }
