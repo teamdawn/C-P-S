@@ -53,7 +53,7 @@ public class LotMapActivity extends MapActivity
         mapController.setZoom(lot.getZoomLevel());
         
         // Download spots from database in a separate thread
-        new DownloadSpotsTask().execute(lot.getLotId());
+        new DownloadSpotsTask().execute();
     }
     
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,18 +107,16 @@ public class LotMapActivity extends MapActivity
     	return false;
     }
     
-    private class DownloadSpotsTask extends AsyncTask<Integer, Integer, Integer>
+    private class DownloadSpotsTask extends AsyncTask<Void, Integer, Integer>
     {
-    	// NOTE: This currently gets all rows from the "Lot" table.
-    	//       It needs to get rows from the "Spot" table, instead.
-    	//       Also, need to get only certain rows. How to implement "WHERE" clause???
+    	// TODO: Use stored procedure to get only spots for this lot.
     	private final String mobileServiceUrl = 
-                "https://cps.azure-mobile.net/tables/Lot";
+                "https://cps.azure-mobile.net/tables/Spot";
         private final String mobileServiceAppId = 
         		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
         
     	// Do the long-running work in here
-        protected Integer doInBackground(Integer... lotID)
+        protected Integer doInBackground(Void... voids)
         {
         	try
             {
@@ -166,18 +164,21 @@ public class LotMapActivity extends MapActivity
                     {
                         results[i] = jsonArray.getJSONObject(i);
                         
-                        // TODO: Update this with correct column names, once we are reading the "Spot" table instead of "Lot" table.
-                        int spotNumber = results[i].getInt("LotID");
-                        String status = "AVAILABLE";
-                        String user = results[i].getString("Name");
-                        String type = "COMMUTER";
+                        // TODO: Remove check for LotID, after query is fixed to only return correct rows.
+                        int lotID = results[i].getInt("LotID");
+                        if(lotID != lot.getLotId())
+                        	continue;
+                        
+                        int spotNumber = results[i].getInt("SpotNumber");
+                        String status = results[i].getString("Status");
+                        String user = results[i].getString("Username");
+                        String type = results[i].getString("Type");
                         int centerLat = (int)(results[i].getDouble("CenterLat") * 1000000);
                         int centerLong = (int)(results[i].getDouble("CenterLong") * 1000000);
-                        int rotation = 0;
-                        int zoom = 19;
-                        
+                        int rotation = results[i].getInt("Rotation");
+
                         lot.addSpot(new SpotOverlayItem(spotNumber, status, user, type,
-                        		centerLat, centerLong, rotation, zoom));
+                        		centerLat, centerLong, rotation, lot.getZoomLevel()));
                     }
 
                 } catch (Exception ex) {
