@@ -3,10 +3,12 @@ package edu.uco.teamdawn;
 import com.google.android.maps.MapView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,7 +33,7 @@ public class SelectSpotActivity extends FragmentActivity implements
 		Spinner spinnerLot = (Spinner) findViewById(R.id.spinner);
 		Spinner spinnerSpot = (Spinner) findViewById(R.id.sspot);
 		Button buttonReserve = (Button) findViewById(R.id.bReserve);
-
+		
 		Toast.makeText(SelectSpotActivity.this, "FY$", Toast.LENGTH_LONG)
 				.show();
 
@@ -67,6 +69,22 @@ public class SelectSpotActivity extends FragmentActivity implements
 
 			}
 		});
+		
+		buttonReserve.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				// make a stored procedure to reserve spot
+				// if ( stored procedure went through ) {
+					//if ( lot and spot are selected ) {
+						Intent viewSpot = new Intent(SelectSpotActivity.this, ViewSpotActivity.class);
+						startActivity(viewSpot);
+					// }
+				// }
+			}
+			
+		});
+		
 
 	}
 
@@ -84,5 +102,7 @@ public class SelectSpotActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 	}
+	
+	
 
 }
