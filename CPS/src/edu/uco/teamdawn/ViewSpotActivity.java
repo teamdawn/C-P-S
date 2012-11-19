@@ -18,6 +18,10 @@ public class ViewSpotActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewspotactivity);
 		
+        //COUNTER
+        //MyCounter counter = new MyCounter(5000,1000);
+        //counter.start();
+        
 		lotNumber = (TextView) findViewById(R.id.lotNumber);
 		spotNumber = (TextView) findViewById(R.id.spotNumber);
 		
