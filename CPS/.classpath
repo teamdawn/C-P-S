@@ -4,9 +4,9 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Program Files/Android/android-sdk/add-ons/addon-google_apis-google-11/libs/maps.jar">
+	<classpathentry kind="lib" path="C:/Users/Dawn/android-sdks/add-ons/addon-google_apis-google-14/libs/maps.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/C:/Program Files/Android/android-sdk/add-ons/addon-google_apis-google-11/docs/reference"/>
+			<attribute name="javadoc_location" value="file:/C:/Users/Dawn/android-sdks/add-ons/addon-google_apis-google-14/docs/reference"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>

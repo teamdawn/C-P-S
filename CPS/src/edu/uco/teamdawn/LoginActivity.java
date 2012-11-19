@@ -1,6 +1,8 @@
 package edu.uco.teamdawn;
 
 import android.app.Activity;
+import java.sql.*;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +14,23 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
+	String connectionString = "jdbc:sqlserver://pjy6iajgqw.database.windows.net:1433;"
+			+ "database=teamdawn_db;"
+			+ "user=teamdawn@pjy6iajgqw;"
+			+ "password={fashion123!};"
+			+ "encrypt=true;"
+			+ "hostNameInCertificate=*.database.windows.net;"
+			+ "loginTimeout=30;";
+		
+		final String mobileServiceUrl = 
+                "https://cps.azure-mobile.net/tables/Lot";
+        final String mobileServiceAppId = 
+        		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layoutlogin);
-
+		
 		etUsername = (EditText) findViewById(R.id.editText1);
 		etPassword = (EditText) findViewById(R.id.editText2);
 		tvLoginFail = (TextView) findViewById(R.id.tvLoginFailed);
@@ -23,17 +38,43 @@ public class LoginActivity extends Activity {
 		bRegister = (Button) findViewById(R.id.bRegister);
 
 		btnLogin.setOnClickListener(new View.OnClickListener() {
-
+	
+		
 			public void onClick(View v) {
 				tvLoginFail.setVisibility(View.INVISIBLE);
-
+				
+				String username = etUsername.getText().toString();
+				String password = etPassword.getText().toString();
+				String result = "";
+				CallableStatement statement = null;
+				boolean value = false;
+				
+				Connection connection;
+				//try {
+					//connection = DriverManager.getConnection(connectionString);
+					//Log.v("test","test");
+					//String query = "call PROCEDURE sp_checkValidUser(?,?,?)";
+					//statement = connection.prepareCall(query);
+					//statement.setString(1, username);
+				    //statement.setString(2, password);
+				    //statement.registerOutParameter(3, Types.BOOLEAN);
+					//statement.execute();
+					//value = statement.getBoolean(3);
+					//statement.close();
+				//} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				//}
+				
+				Log.v("result", result);
+				//if(value) {
 				if (VerifyUser(etUsername.getText().toString(), etPassword
 						.getText().toString())) {
 
 					Intent openUser = new Intent(getBaseContext(),
-							ViewSpotActivity.class);
+							SelectSpotActivity.class);
 					startActivity(openUser);
-
+				//}
 				} else {
 					etUsername.setText("");
 					etPassword.setText("");

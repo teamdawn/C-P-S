@@ -53,7 +53,7 @@ public class ViewSpotActivity extends FragmentActivity {
         		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
 		
 		Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
-		lot = new LotItemizedOverlay(defaultMarker, this, 1, "Lot 1", 35654125, -97473500, 19, mapView);
+		lot = new LotItemizedOverlay(defaultMarker, this, 17, "Lot 17", 35654125, -97473500, 19, mapView);
 		
 		lotNumber = (TextView) findViewById(R.id.lotNumber);
 		spotNumber = (TextView) findViewById(R.id.spotNumber);
@@ -61,10 +61,6 @@ public class ViewSpotActivity extends FragmentActivity {
 		checkInOut = (Button) findViewById(R.id.checkInOutButton);
 		cancelReservation = (Button) findViewById(R.id.cancelReservationButton);
 		
-		//RelativeLayout rl = (RelativeLayout) findViewById(R.id.rLayout);
-		//Intent intent = new Intent(ViewSpotActivity.this, LotMapActivity.class);
-		//intent.putExtra("spotActivity", true);
-		//startActivity(intent);
 	}
 	public boolean onCreateOptionsMenu(Menu menu) {
     	super.onCreateOptionsMenu(menu);
