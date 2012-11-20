@@ -75,11 +75,13 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 		
 		SpotOverlayItem spot = spots.get(index);
 		spot.setSelected(true);
+		spot.refreshOverlay(zoomLevel);
 		selectedIndex = index;
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 		dialog.setTitle(spot.getTitle());
-		dialog.setMessage(spot.getSnippet() + "\nZoomLevel: " + zoomLevel);
+		dialog.setMessage(spot.getSnippet() + "\nZoomLevel: " + zoomLevel
+				+ "\nSpotCount: " + spots.size());
 				//+ "\nI-height: " + spot.getMarker(0).getIntrinsicHeight()
 				//+ "\nI-width: " + spot.getMarker(0).getIntrinsicWidth()
 				//+ "\nWidth: " + spot.getWidth()
@@ -92,6 +94,11 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 		mapView.invalidate();
 		
 		return true;
+	}
+	
+	public void InvalidateMap()
+	{
+		mapView.invalidate();
 	}
 	
 	public SpotOverlayItem getSelectedSpot()
@@ -136,6 +143,7 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 
 	public void setZoomLevel(int zoomLevel) {
 		this.zoomLevel = zoomLevel;
+		mapView.invalidate();
 	}
 
 	public int getSelectedIndex() {

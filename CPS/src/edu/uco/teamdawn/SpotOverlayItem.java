@@ -40,6 +40,11 @@ public class SpotOverlayItem extends OverlayItem {
 		PictureDrawable pd;
 		this.zoom = zoom;
 		switch (zoom) {
+		case 19:
+			width = 5;
+			height = 11;
+			pd = new PictureDrawable(this.drawSpot());
+			break;
 		case 20:
 			width = 10;
 			height = 22;

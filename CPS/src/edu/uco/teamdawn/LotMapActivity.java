@@ -116,6 +116,7 @@ public class LotMapActivity extends MapActivity
         		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
         
     	// Do the long-running work in here
+        @Override
         protected Integer doInBackground(Void... voids)
         {
         	try
@@ -179,6 +180,8 @@ public class LotMapActivity extends MapActivity
 
                         lot.addSpot(new SpotOverlayItem(spotNumber, status, user, type,
                         		centerLat, centerLong, rotation, lot.getZoomLevel()));
+                        
+                        
                     }
 
                 } catch (Exception ex) {
@@ -189,7 +192,15 @@ public class LotMapActivity extends MapActivity
               } catch (Exception ex) {
                 Log.e("LotMapActivity Failure", "Error opening HTTP Connection: " + ex.getMessage());
               }
-            
+        	
+        	for(SpotOverlayItem spot : lot.getAllSpots())
+        	{
+        		// TODO: Check the actual username
+        		if(spot.getUser().equals("op"))
+        			spot.setSelected(true);
+        		
+        		spot.refreshOverlay(lot.getZoomLevel());
+        	}
         	
             // publishProgress() can be called to provide status updates
             // publishProgress(123);
@@ -201,13 +212,15 @@ public class LotMapActivity extends MapActivity
         }
 
         // This is called each time you call publishProgress()
+        //@Override
         //protected void onProgressUpdate(Integer... progress) {
         //    setProgressPercent(progress[0]);
         //}
 
         // This is called when doInBackground() is finished
-        //protected void onPostExecute(Long result) {
-        //    showNotification("Downloaded " + result + " bytes");
-        //}
+        @Override
+        protected void onPostExecute(Integer result) {
+        	lot.InvalidateMap();
+        }
     }
 }

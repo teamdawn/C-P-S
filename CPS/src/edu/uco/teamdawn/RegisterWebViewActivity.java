@@ -14,7 +14,7 @@ public class RegisterWebViewActivity extends Activity {
 		
 		wv = (WebView)findViewById(R.id.wvRegister);
 		wv.getSettings().setJavaScriptEnabled(true);
-		wv.loadUrl("www.google.com"); // webaddress here.
+		wv.loadUrl("http://www.google.com"); // webaddress here.
 		 	
 		 	
 	}
