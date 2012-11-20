@@ -18,6 +18,7 @@ public class ViewSpotActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.viewspotactivity);
 
+        
 		lotNumber = (TextView) findViewById(R.id.lotNumber);
 		spotNumber = (TextView) findViewById(R.id.spotNumber);
 		
