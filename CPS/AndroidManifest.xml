@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".SelectSpotActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
