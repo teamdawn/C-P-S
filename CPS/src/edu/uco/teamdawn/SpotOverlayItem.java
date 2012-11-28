@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.drawable.PictureDrawable;
-// test comment
+
 public class SpotOverlayItem extends OverlayItem {
 	private int spotNumber;
 	private String status;
@@ -91,8 +91,28 @@ public class SpotOverlayItem extends OverlayItem {
 			}
 			else if(type.equals("FACULTY"))
 			{
-				// blue
+				// light blue
+				paint.setARGB(255, 153, 217, 234);
+			}
+			else if(type.equals("FACULTY 24HR"))
+			{
+				// dark blue
 				paint.setARGB(255, 0, 0, 255);
+			}
+			else if(type.equals("HOUSING"))
+			{
+				// green
+				paint.setARGB(255, 0, 220, 0);
+			}
+			else if(type.equals("MULTI"))
+			{
+				// pale yellow
+				paint.setARGB(255, 255, 255, 128);
+			}
+			else if(type.equals("VISITOR"))
+			{
+				// gray
+				paint.setARGB(255, 192, 192, 192);
 			}
 			else
 			{
@@ -106,25 +126,30 @@ public class SpotOverlayItem extends OverlayItem {
 			paint.setARGB(255, 0, 0, 0);
 		}
 		
-		// These 4 lines make a good Picture, but no rotation
-		Canvas canvas = pic.beginRecording(width, height);
-		Rect rect = new Rect(0, 0, width, height);
+		Canvas canvas;
+		Rect rect;
+		
+		switch(rotation)
+		{
+			case 0:
+				// vertical (car points north/south)
+				canvas = pic.beginRecording(width, height);
+				rect = new Rect(0, 0, width, height);
+				break;
+			case 90:
+				// horizontal (car points east/west)
+				canvas = pic.beginRecording(height, width);
+				rect = new Rect(0, 0, height, width);
+				break;
+			default:
+				// vertical (car points north/south)
+				canvas = pic.beginRecording(width, height);
+				rect = new Rect(0, 0, width, height);
+				break;
+		}
+		
 		canvas.drawRect(rect, paint);
 		pic.endRecording();
-
-		
-		/* this is an attempt to make it rotate. doesn't work currently
-		// Create rotation matrix
-		Matrix rotateMatrix = new Matrix();
-		rotateMatrix.setRotate(rotation, canvas.getWidth()/2, canvas.getHeight()/2);
-		PictureDrawable pd = new PictureDrawable(pic);
-		Bitmap bitmap = Bitmap.createBitmap(pd.getIntrinsicWidth(), pd.getIntrinsicHeight(), Config.ARGB_8888);
-	    Canvas canvas2 = new Canvas(bitmap); 
-	    pd.setBounds(0, 0, canvas2.getWidth(), canvas2.getHeight());
-	    pd.draw(canvas2);
-		// Draw bitmap onto canvas using matrix
-		canvas.drawBitmap(bitmap, rotateMatrix, null);
-		*/
 		
 		return pic;
 	}
