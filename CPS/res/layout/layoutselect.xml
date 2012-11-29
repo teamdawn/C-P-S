@@ -5,22 +5,25 @@
     android:background="@drawable/background"
     android:paddingLeft="10dp"
     android:paddingRight="10dp" >
-
+
     <Button
         android:id="@+id/bReserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSpot"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
-        android:text="Reserve"
-        android:typeface="monospace" /><Spinner
+        android:text="Reserve" />
+
+    <Spinner
         android:id="@+id/sspot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="5dp"
-        android:clipToPadding="true" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:id="@+id/tvSpot"
@@ -46,17 +49,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:text="Select Spot"
-        android:textAppearance="?android:attr/textAppearanceMedium" /><Spinner
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
         android:id="@+id/spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/LotMapFragmentFrameSS"
         android:layout_below="@+id/tvHeader"
         android:layout_marginBottom="2dp"
-        android:background="#CCCCCC"
         android:visibility="visible" />
-
-
 
     <fragment
         android:id="@+id/LotMapFragmentSS"

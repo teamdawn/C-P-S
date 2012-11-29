@@ -1,11 +1,11 @@
 package edu.uco.teamdawn;
 
-import com.google.android.maps.MapView;
-
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +22,7 @@ public class SelectSpotActivity extends FragmentActivity implements
 	private String[] lot = { "a", "b", "c" };
 	private String[] spot = { "1", "32", "3" };
 
-	private MapView mapView;
-
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -32,16 +31,11 @@ public class SelectSpotActivity extends FragmentActivity implements
 
 		Spinner spinnerLot = (Spinner) findViewById(R.id.spinner);
 		Spinner spinnerSpot = (Spinner) findViewById(R.id.sspot);
-		Button buttonReserve = (Button) findViewById(R.id.bReserve);
 		
-		Toast.makeText(SelectSpotActivity.this, "FY$", Toast.LENGTH_LONG)
-				.show();
+		Button buttonReserve = (Button) findViewById(R.id.bReserve);
 
-		Drawable defaultMarker = this.getResources().getDrawable(
-			R.drawable.androidmarker);
-	//	LotItemizedOverlay lotOverlay = new LotItemizedOverlay(defaultMarker,
-		//		this, 1, "Lot 1", 35654125, -97473500, 19, mapView);
-
+		Toast.makeText(SelectSpotActivity.this, "toasted", Toast.LENGTH_LONG).show();
+		
 		ArrayAdapter<String> lotAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_spinner_dropdown_item, lot);
 		ArrayAdapter<String> spotAdapter = new ArrayAdapter<String>(this,
@@ -69,22 +63,23 @@ public class SelectSpotActivity extends FragmentActivity implements
 
 			}
 		});
-		
+
 		buttonReserve.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+
 				// make a stored procedure to reserve spot
 				// if ( stored procedure went through ) {
-					//if ( lot and spot are selected ) {
-						Intent viewSpot = new Intent(SelectSpotActivity.this, ViewSpotActivity.class);
-						startActivity(viewSpot);
-					// }
-				// }
+				// if ( lot and spot are selected ) {
+				
+				Intent viewSpot = new Intent(SelectSpotActivity.this,
+						ViewSpotActivity.class);
+				startActivity(viewSpot);
+				
 			}
-			
+
 		});
-		
 
 	}
 
@@ -103,6 +98,5 @@ public class SelectSpotActivity extends FragmentActivity implements
 
 	}
 	
-	
-
 }
+
