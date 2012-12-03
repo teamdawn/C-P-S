@@ -1,6 +1,8 @@
 package edu.uco.teamdawn;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+
 import java.sql.*;
 
 import android.content.Intent;
@@ -13,19 +15,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity {
-
-	String connectionString = "jdbc:sqlserver://pjy6iajgqw.database.windows.net:1433;"
-			+ "database=teamdawn_db;"
-			+ "user=teamdawn@pjy6iajgqw;"
-			+ "password={fashion123!};"
-			+ "encrypt=true;"
-			+ "hostNameInCertificate=*.database.windows.net;"
-			+ "loginTimeout=30;";
-		
-		final String mobileServiceUrl = 
-                "https://cps.azure-mobile.net/tables/Lot";
-        final String mobileServiceAppId = 
-        		"iRlBQCSbmkzvrkLLXVZOyryIXtFUfb62";
+	
+	public static String rslt= "";
+	public static String username = "";
+	public static String type = "";
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,39 +39,27 @@ public class LoginActivity extends Activity {
 				String username = etUsername.getText().toString();
 				String password = etPassword.getText().toString();
 				String result = "";
-				CallableStatement statement = null;
-				boolean value = false;
+				//CallableStatement statement = null;
+				//boolean value = false;
 				
-				Connection connection;
-				//try {
-					//connection = DriverManager.getConnection(connectionString);
-					//Log.v("test","test");
-					//String query = "call PROCEDURE sp_checkValidUser(?,?,?)";
-					//statement = connection.prepareCall(query);
-					//statement.setString(1, username);
-				    //statement.setString(2, password);
-				    //statement.registerOutParameter(3, Types.BOOLEAN);
-					//statement.execute();
-					//value = statement.getBoolean(3);
-					//statement.close();
-				//} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					//e1.printStackTrace();
-				//}
-				
+								
 				Log.v("result", result);
-				//if(value) {
-				if (VerifyUser(etUsername.getText().toString(), etPassword
-						.getText().toString())) {
 
-					Intent openUser = new Intent(getBaseContext(),
-							SelectSpotActivity.class);
-					startActivity(openUser);
-				//}
-				} else {
-					etUsername.setText("");
-					etPassword.setText("");
-					tvLoginFail.setVisibility(View.VISIBLE);
+				try {
+					if (VerifyUser(username, password)) {
+
+						Intent openUser = new Intent(getBaseContext(),
+								SelectSpotActivity.class);
+						startActivity(openUser);
+						
+					} else {
+						etUsername.setText("");
+						etPassword.setText("");
+						tvLoginFail.setVisibility(View.VISIBLE);
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -98,17 +79,63 @@ public class LoginActivity extends Activity {
 	}
 
 	// send to database for verification
-	public boolean VerifyUser(String u, String p) {
-		Log.v("w", u);
-		Log.v("w", p);
+	public boolean VerifyUser(String u, String p) throws InterruptedException {
+		AlertDialog ad=new AlertDialog.Builder(this).create();
+		try{
+		String a=u;
+	    String b=p;
+	    rslt="START";	        
+	    Caller c=new Caller();
+	    c.a=a;
+	    c.b=b;
+	    c.ad=ad;
+	    c.join();
+	    c.start();
+	    while(rslt=="START")
+	    {
+	     	try
+	       	{
+	       		Thread.sleep(10);
+	       		
+	       	}catch(Exception ex)
+	       	{
+	       		
+	       	}
+	    }
+	    
+	    ad.setMessage(a + ", " + b + ", " + rslt);
+	    
+		}catch(Exception ex)
+	        {
+	        	ad.setTitle("Error!");
+	        	ad.setMessage(ex.toString());
+	        	//ad.show();
+	        }
+	       ad.show();
+	    
+	       
+	if(rslt.equals("true")) {
+	    //if (rslt.equals("Commuter") || rslt.equals("FACULTY 24HR") || rslt.equals("FACULTY") ||
+	    	//	rslt.equals("HOUSING") || rslt.equals("MULTI") || rslt.equals("VISITOR")){
+	    	type = rslt;
+	    	username = u;
+	    //(rslt == "Commuter" /*|| rslt == "FACULTY 24HR" || rslt == "VISITOR" || rslt == "FACULTY" || 
+	    		//rslt == "HOUSING" || rslt == "MULTI"*/) {
+	    	return true;
+	    } else {
+	    	return false;
+	    }
+	    
+		//Log.v("w", u);
+		//Log.v("w", p);
 
-		if (u.equals("op") && p.equals("123")) {
-			Log.v("w", "if statement ran");
-			return true;
-		} else {
+		//if (u.equals("op") && p.equals("123")) {
+		//	Log.v("w", "if statement ran");
+		//	return true;
+		//} else {
 
-			return false;
-		}
+		//	return false;
+		//}
 
 	}
 
