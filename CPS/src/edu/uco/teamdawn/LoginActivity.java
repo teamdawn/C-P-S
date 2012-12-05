@@ -3,13 +3,10 @@ package edu.uco.teamdawn;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import java.sql.*;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,25 +29,28 @@ public class LoginActivity extends Activity {
 
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 	
-		
 			public void onClick(View v) {
 				tvLoginFail.setVisibility(View.INVISIBLE);
 				
 				String username = etUsername.getText().toString();
 				String password = etPassword.getText().toString();
 				String result = "";
-				//CallableStatement statement = null;
-				//boolean value = false;
-				
-								
+			
 				Log.v("result", result);
 
 				try {
 					if (VerifyUser(username, password)) {
-
-						Intent openUser = new Intent(getBaseContext(),
+						if(!isUserCheckedIn(username)) {
+						// user lot and spot if they have one
+						Intent selectSpot = new Intent(LoginActivity.this, 
 								SelectSpotActivity.class);
-						startActivity(openUser);
+						startActivity(selectSpot);
+						} else {
+							Intent viewSpot = new Intent(LoginActivity.this, 
+									ViewSpotActivity.class);
+							startActivity(viewSpot);
+						}
+							
 						
 					} else {
 						etUsername.setText("");
@@ -71,72 +71,44 @@ public class LoginActivity extends Activity {
 				Intent i = new Intent(getBaseContext(),
 						RegisterWebViewActivity.class);
 				startActivity(i);
-
 			}
-
 		});
+	}
 
+	protected boolean isUserCheckedIn(String username2) {
+		// TODO Auto-generated method stub
+		CallSoap cs = new CallSoap();
+		String checkedIn = cs.CallIsUserCheckedIn(username2);
+		if(checkedIn.equals("true")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// send to database for verification
-	public boolean VerifyUser(String u, String p) throws InterruptedException {
+	// return value is if user is checked in
+	public boolean VerifyUser(String username, String password) throws InterruptedException {
 		AlertDialog ad=new AlertDialog.Builder(this).create();
 		try{
-		String a=u;
-	    String b=p;
-	    rslt="START";	        
-	    Caller c=new Caller();
-	    c.a=a;
-	    c.b=b;
-	    c.ad=ad;
-	    c.join();
-	    c.start();
-	    while(rslt=="START")
-	    {
-	     	try
-	       	{
-	       		Thread.sleep(10);
-	       		
-	       	}catch(Exception ex)
-	       	{
-	       		
-	       	}
+			CallSoap cs = new CallSoap();
+			rslt = cs.CallVerifyUser(username, password);
+	    
+	    ad.setMessage(username + ", " + password + ", " + rslt);
+	    
+		}catch(Exception ex) {
+	        ad.setTitle("Error!");
+	        ad.setMessage(ex.toString());
 	    }
-	    
-	    ad.setMessage(a + ", " + b + ", " + rslt);
-	    
-		}catch(Exception ex)
-	        {
-	        	ad.setTitle("Error!");
-	        	ad.setMessage(ex.toString());
-	        	//ad.show();
-	        }
-	       ad.show();
-	    
-	       
-	if(rslt.equals("true")) {
-	    //if (rslt.equals("Commuter") || rslt.equals("FACULTY 24HR") || rslt.equals("FACULTY") ||
-	    	//	rslt.equals("HOUSING") || rslt.equals("MULTI") || rslt.equals("VISITOR")){
+	    ad.show();
+	     
+	    if(rslt.equals("true")) {
 	    	type = rslt;
-	    	username = u;
-	    //(rslt == "Commuter" /*|| rslt == "FACULTY 24HR" || rslt == "VISITOR" || rslt == "FACULTY" || 
-	    		//rslt == "HOUSING" || rslt == "MULTI"*/) {
+	    	this.username = username;
 	    	return true;
 	    } else {
 	    	return false;
 	    }
-	    
-		//Log.v("w", u);
-		//Log.v("w", p);
-
-		//if (u.equals("op") && p.equals("123")) {
-		//	Log.v("w", "if statement ran");
-		//	return true;
-		//} else {
-
-		//	return false;
-		//}
-
 	}
 
 	EditText etUsername;

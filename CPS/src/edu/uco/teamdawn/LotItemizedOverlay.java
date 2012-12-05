@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.widget.Toast;
 
 public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 	private ArrayList<SpotOverlayItem> spots;
@@ -25,6 +26,9 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 	
 	private MapView mapView;
 	private boolean dirty = true;
+	
+	public static int selectedLotID = 17;
+	public static int selectedSpotNumber = 0;
 
 	public LotItemizedOverlay(Drawable defaultMarker, Context context, int lotId, String name,
 			int centerLat, int centerLong, int zoom, MapView mv) {
@@ -39,6 +43,7 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 		this.centerLong = centerLong;
 		this.zoomLevel = zoom;
 		this.spots = new ArrayList<SpotOverlayItem>();
+		selectedLotID = lotId;
 	}
 
 	@Override
@@ -67,21 +72,30 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 	@Override
 	protected boolean onTap(int index) {
 		
+		// don't allow tapping of unavailable spots
+		if(!spots.get(index).getStatus().equals("AVAILABLE"))
+			return true;
+		
+		// Set all spots to not selected
 		for(SpotOverlayItem spot : spots)
 		{
 			spot.setSelected(false);
 			spot.refreshOverlay(zoomLevel);
 		}
 		
+		// now update actual spot that was tapped
 		SpotOverlayItem spot = spots.get(index);
 		spot.setSelected(true);
 		spot.refreshOverlay(zoomLevel);
 		selectedIndex = index;
-
+		selectedLotID = this.lotId;
+		selectedSpotNumber = spot.getSpotNumber();
+		
+		///Toast.makeText(mContext, "You selected spot " + spot.getSpotNumber(), Toast.LENGTH_LONG).show();
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		dialog.setTitle(spot.getTitle());
-		dialog.setMessage(spot.getSnippet() + "\nZoomLevel: " + zoomLevel
-				+ "\nSpotCount: " + spots.size());
+		dialog.setTitle("Spot Selected");
+		dialog.setMessage("You selected spot " + spot.getSpotNumber() + ".");
+		dialog.setPositiveButton("OK", null);
 				//+ "\nI-height: " + spot.getMarker(0).getIntrinsicHeight()
 				//+ "\nI-width: " + spot.getMarker(0).getIntrinsicWidth()
 				//+ "\nWidth: " + spot.getWidth()
@@ -91,6 +105,7 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 
 		dialog.show();
 		
+		// call this to redraw since we changed color spot
 		mapView.invalidate();
 		
 		return true;

@@ -17,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
+import android.widget.Toast;
 
 import android.util.Log;     // for logging
 import org.json.JSONArray;   // for JSONArray
@@ -45,30 +47,54 @@ public class LotMapActivity extends MapActivity
         mapView.setBuiltInZoomControls(true);
         mapView.setSatellite(showSatelliteView);
                 
-        Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
+        if(LotItemizedOverlay.selectedSpotNumber == 0)
+        	this.updateLotID(17);
+        else
+        	this.updateLotID(LotItemizedOverlay.selectedLotID);
+    }
+    
+    private void updateLotID(int lotID)
+    {
+    	mapView.getOverlays().clear();
+    	
+    	Drawable defaultMarker = this.getResources().getDrawable(R.drawable.androidmarker);
         
-        // TODO: Download lot from database in separate thread
-        lot = new LotItemizedOverlay(defaultMarker, this, 17, "Lot 17", 35654125, -97473500, 19, mapView);
-        
-        mapView.getOverlays().add(lot);
-
-        mapController = mapView.getController();
-        mapController.setCenter(new GeoPoint(lot.getCenterLat(), lot.getCenterLong()));
-        mapController.setZoom(lot.getZoomLevel());
-        
+    	// TODO: Download lot from database in separate thread
+        lot = new LotItemizedOverlay(defaultMarker, this, lotID, "Lot 17", 35654125, -97473500, 19, mapView);
+     
         // Download spots from database in a separate thread
         new DownloadSpotsTask().execute();
     }
     
     public boolean onCreateOptionsMenu(Menu menu) {
     	super.onCreateOptionsMenu(menu);
+    	SubMenu sm = menu.addSubMenu(1, 6, 5, "Lots");
+    	sm.add(2, 6, 0, "Lot 13");
+    	sm.add(2, 7, 1, "Lot 14");
+    	sm.add(2, 8, 2, "Lot 17");
+    	sm.add(2, 9, 3, "Lot 18");
         MenuInflater oMenu = getMenuInflater();
         oMenu.inflate(R.menu.main, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+    	//Toast.makeText(this, item.getItemId(), Toast.LENGTH_LONG).show();
     	switch(item.getItemId()) {
+    		case 5:
+    			return true;
+    		case 6:
+    			updateLotID(13);
+    			return true;
+    		case 7:
+    			updateLotID(14);
+    			return true;
+    		case 8:
+    			updateLotID(17);
+    			return true;
+    		case 9:
+    			updateLotID(18);
+    			return true;
     		case R.id.mapStreetView:
     			mapView.setSatellite(false);
     			mapView.invalidate();
@@ -151,7 +177,7 @@ public class LotMapActivity extends MapActivity
     	// Do the long-running work in here
         @Override
         protected Integer doInBackground(Void... voids)
-        {
+        {/*
         	// Temporary hardcoded spots for testing only
             int rowLat = 35654538;
             int colOneLong = -97473800;
@@ -361,9 +387,10 @@ public class LotMapActivity extends MapActivity
             lot.addSpot(new SpotOverlayItem(913, "OCCUPIED", "none", "COMMUTER", rowLat, colOneLong + colOffset * 14, rotation, lot.getZoomLevel()));
 			*/
             
-        	/* Mobile service locked out. Reverting to hardcoded test data
+        	// Mobile service locked out. Reverting to hardcoded test data
             try
             {
+            	/*
         		// Start building the request object to get the data 
                 URL url = new URL(mobileServiceUrl);
 
@@ -379,9 +406,10 @@ public class LotMapActivity extends MapActivity
                 urlRequest.addRequestProperty("Content-Type", "application/json");
                 urlRequest.addRequestProperty("ACCEPT", "application/json");
                 urlRequest.addRequestProperty("X-ZUMO-APPLICATION", mobileServiceAppId);
-                
+                */
                 try    
                 {
+                	/*
                     InputStream in = new BufferedInputStream(
                             urlRequest.getInputStream());
                     BufferedReader bufferReader = new BufferedReader(
@@ -396,31 +424,42 @@ public class LotMapActivity extends MapActivity
                     {
                         responseString.append(line);
                     }
-
+                	 */
                     // Convert responseString into a JSONArray
-                    JSONArray jsonArray = new JSONArray(responseString.toString());
+                	
+                			
 
+                	
+                	CallSoap cs = new CallSoap();
+                    JSONArray jsonArray = new JSONArray(cs.CallGetSpotsByLotID(lot.getLotId()));
+            		//JSONArray jsonArray = new JSONArray(rslt);
+					
                     // We hold the json results
+                    
                     JSONObject[] results = new JSONObject[jsonArray.length()];
+                    
 
                     // Loop through the objects.
                     for (int i = 0; i < jsonArray.length(); i++) 
                     {
                         results[i] = jsonArray.getJSONObject(i);
                         
+                        
                         // TODO: Remove check for LotID, after query is fixed to only return correct rows.
-                        int lotID = results[i].getInt("LotID");
-                        if(lotID != lot.getLotId())
-                        	continue;
+                        //int lotID = results[i].getInt("LotId");
+                        //if(lotID != lot.getLotId())
+                        //	continue;
                         
                         int spotNumber = results[i].getInt("SpotNumber");
                         String status = results[i].getString("Status");
-                        String user = results[i].getString("Username");
+                        String user = results[i].getString("User");
                         String type = results[i].getString("Type");
                         int centerLat = (int)(results[i].getDouble("CenterLat") * 1000000);
                         int centerLong = (int)(results[i].getDouble("CenterLong") * 1000000);
                         int rotation = results[i].getInt("Rotation");
 
+                        Log.v("type", type);
+                        
                         lot.addSpot(new SpotOverlayItem(spotNumber, status, user, type,
                         		centerLat, centerLong, rotation, lot.getZoomLevel()));
                     }
@@ -428,12 +467,12 @@ public class LotMapActivity extends MapActivity
                 } catch (Exception ex) {
                     Log.e("LotMapActivity Failure", "Error getting JSON from Server: "+ ex.getMessage());
                 } finally {
-                    urlRequest.disconnect();
+                    //urlRequest.disconnect();
                 }
               } catch (Exception ex) {
                 Log.e("LotMapActivity Failure", "Error opening HTTP Connection: " + ex.getMessage());
               }
-        	*/
+        	
         	for(SpotOverlayItem spot : lot.getAllSpots())
         	{
         		// TODO: Check the actual username
@@ -461,6 +500,13 @@ public class LotMapActivity extends MapActivity
         // This is called when doInBackground() is finished
         @Override
         protected void onPostExecute(Integer result) {
+        	
+        	mapView.getOverlays().add(lot);
+
+            mapController = mapView.getController();
+            mapController.setCenter(new GeoPoint(lot.getCenterLat(), lot.getCenterLong()));
+            mapController.setZoom(lot.getZoomLevel());
+            
         	lot.InvalidateMap();
         }
     }
