@@ -16,6 +16,8 @@ public class LoginActivity extends Activity {
 	public static String rslt= "";
 	public static String username = "";
 	public static String type = "";
+	public static String spot = "";
+	public static boolean check = false;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,11 +42,12 @@ public class LoginActivity extends Activity {
 
 				try {
 					if (VerifyUser(username, password)) {
-						if(!isUserCheckedIn(username)) {
-						// user lot and spot if they have one
-						Intent selectSpot = new Intent(LoginActivity.this, 
-								SelectSpotActivity.class);
-						startActivity(selectSpot);
+						// return spot
+						isUserCheckedIn(username);
+						if(!check) {
+							Intent selectSpot = new Intent(LoginActivity.this, 
+									SelectSpotActivity.class);
+							startActivity(selectSpot);
 						} else {
 							Intent viewSpot = new Intent(LoginActivity.this, 
 									ViewSpotActivity.class);
@@ -75,14 +78,18 @@ public class LoginActivity extends Activity {
 		});
 	}
 
-	protected boolean isUserCheckedIn(String username2) {
+	protected String isUserCheckedIn(String username2) {
 		// TODO Auto-generated method stub
 		CallSoap cs = new CallSoap();
-		String checkedIn = cs.CallIsUserCheckedIn(username2);
-		if(checkedIn.equals("true")) {
-			return true;
+		spot = cs.CallIsUserCheckedIn(username2);
+		Log.v("spot", spot);
+		if(spot.equals("null")) {
+			check = false;
+			return "null";
 		} else {
-			return false;
+			check = true;
+			LotItemizedOverlay.selectedSpotNumber = Integer.parseInt(spot);
+			return spot;
 		}
 	}
 
@@ -103,7 +110,7 @@ public class LoginActivity extends Activity {
 	    ad.show();
 	     
 	    if(rslt.equals("true")) {
-	    	type = rslt;
+	    	//type = rslt;
 	    	this.username = username;
 	    	return true;
 	    } else {

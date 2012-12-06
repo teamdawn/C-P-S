@@ -14,7 +14,11 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import com.google.android.maps.GeoPoint;
+
 import android.app.AlertDialog;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -78,8 +82,8 @@ public class CallSoap {
 	}
 	
 	public String CallIsUserCheckedIn(String username) {
-		SOAP_ACTION = "http://tempuri.org/usUserCheckedIn";
-		OPERATION_NAME = "usUserCheckedIn";
+		SOAP_ACTION = "http://tempuri.org/isUserCheckedIn";
+		OPERATION_NAME = "isUserCheckedIn";
 
 		SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE,
 				OPERATION_NAME);
@@ -159,6 +163,43 @@ public class CallSoap {
 	public String CallGetSpotsByLotID(int lotID) {
 		SOAP_ACTION = "http://tempuri.org/getSpotsByLotID";
 		OPERATION_NAME = "getSpotsByLotID";
+
+		SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE,
+				OPERATION_NAME);
+		PropertyInfo pi = new PropertyInfo();
+		pi.setName("lotID");
+		pi.setValue(lotID);
+		pi.setType(Integer.class);
+		request.addProperty(pi);
+
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+				SoapEnvelope.VER11);
+		envelope.dotNet = true;
+
+		envelope.setOutputSoapObject(request);
+
+		HttpTransportSE httpTransport = new HttpTransportSE(SOAP_ADDRESS);
+		Object response = null;
+	
+		try {
+			httpTransport.call(SOAP_ACTION, envelope);
+
+			response = envelope.getResponse();
+		}
+
+		catch (Exception exception)
+
+		{
+			response = exception.toString();
+		}
+
+		Log.v("response", response.toString());
+		return response.toString();
+	}
+	
+	public String CallGetLotByLotID(int lotID) {
+		SOAP_ACTION = "http://tempuri.org/getLotByLotID";
+		OPERATION_NAME = "getLotByLotID";
 
 		SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE,
 				OPERATION_NAME);
@@ -403,4 +444,5 @@ public class CallSoap {
 
 		return response.toString();
 	}
+	
 }

@@ -73,7 +73,7 @@ public class LotItemizedOverlay extends ItemizedOverlay<SpotOverlayItem> {
 	protected boolean onTap(int index) {
 		
 		// don't allow tapping of unavailable spots
-		if(!spots.get(index).getStatus().equals("AVAILABLE"))
+		if(!spots.get(index).getStatus().equals("AVAILABLE") || LoginActivity.check)
 			return true;
 		
 		// Set all spots to not selected

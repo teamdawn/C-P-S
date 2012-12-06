@@ -93,12 +93,15 @@ public class ViewSpotActivity extends FragmentActivity implements
 		switch (arg0.getId()) {
 		case R.id.checkInOutButton:
 			CallSoap cs = new CallSoap();
+			// user is checked in
 			if (rslt.equals("true")) {
 				cs.CallCheckOutUserSpot(LotItemizedOverlay.selectedSpotNumber,
 						LotItemizedOverlay.selectedLotID);
 				checkInOut.setText("Check In");
+				LoginActivity.check = false;
 				Intent selectSpot = new Intent(ViewSpotActivity.this, SelectSpotActivity.class);
 				startActivity(selectSpot);
+			// user is not checked in
 			} else {
 				cs.CallCheckInUserSpot(LotItemizedOverlay.selectedSpotNumber,
 						LotItemizedOverlay.selectedLotID);
@@ -112,6 +115,7 @@ public class ViewSpotActivity extends FragmentActivity implements
 			CallSoap cs1 = new CallSoap();
 			cs1.CallCancelReservation(LotItemizedOverlay.selectedSpotNumber,
 					LotItemizedOverlay.selectedLotID);
+			LoginActivity.check = false;
 			Intent selectSpot = new Intent(ViewSpotActivity.this, SelectSpotActivity.class);
 			selectSpot.putExtra("extra", true);
 			startActivity(selectSpot);

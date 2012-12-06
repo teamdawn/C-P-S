@@ -1,4 +1,4 @@
-package edu.uco.teamdawn;
+/*package edu.uco.teamdawn;
 
 
 import android.app.AlertDialog;
@@ -9,27 +9,23 @@ import android.app.AlertDialog;
 
 public class Caller  extends Thread 
 {
-	public String spotActivity;
+
 	public AlertDialog ad;
 	public CallSoap cs;
-	String a;
-	String b;
-	String type;
+	public int a,b;
 
 	public void run()
 	{
-		/*try
-		{*/
-		
+		try
+		{
 		cs=new CallSoap();	
-		String resp=cs.CallVerifyUser(a, b);
+		String resp=cs.Call(a, b);
 		LoginActivity.rslt=resp;
-		
-		/*}catch(Exception ex)
+		}catch(Exception ex)
 		{
 			LoginActivity.rslt=ex.toString();	
-		}*/
+		}
 
 	
     }
-}
+}*/
